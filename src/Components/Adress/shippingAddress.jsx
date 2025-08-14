@@ -20,7 +20,7 @@ function ShippingAddress() {
     const payCash = async (values) => {
 
         setisloading(true)
-        const result = await axios.post(`https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${cartId}?https://ThoriaMaaly.github.io/Ecommerce`, { shippingAddress: values }, {
+        const result = await axios.post(`https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${cartId}?url=https://thoriamaaly.github.io/Ecommerce/`, { shippingAddress: values }, {
             headers: {
                 token: localStorage.getItem('userToken')
             }
