@@ -4,7 +4,7 @@ function Allorders() {
     let ownerId = localStorage.getItem('ownerId');
     let [lastOrder, setLastOrder] = useState(null);
     async function getUserOrders() {
-        let data = await axios.get(`https://ecommerce.routemisr.com/api/v1/orders/user/${ownerId}`);
+        let data = await axios.get(`https://ecommerce.routemisr.com/api/v1/orders/user/${ownerId}`).catch((err)=>{console.log(err)});
         let lastIdx = data.data.length;
         console.log(data.data[lastIdx - 1])
         setLastOrder(data.data[lastIdx - 1]);

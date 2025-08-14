@@ -6,30 +6,30 @@ import { cartcontext } from '../../context/cartcontext'
 import { Link } from 'react-router-dom'
 export default function Products({ filtering }) {
 
-    const { addToCart } = React.useContext(cartcontext)
+    const { addToCart ,loading} = React.useContext(cartcontext)
 
     const [allproducts, setallProducts] = React.useState(null)
     const [allbrands, setallbrands] = React.useState(null)
     const [allcategories, setallcategories] = React.useState(null)
     const getProducts = async () => {
-        const { data } = await axios.get('https://ecommerce.routemisr.com/api/v1/products')
+        const { data } = await axios.get('https://ecommerce.routemisr.com/api/v1/products').catch((err)=>{console.log(err)});
 
         setallProducts(data.data);
 
     }
     const getbrands = async () => {
-        const { data } = await axios.get('https://ecommerce.routemisr.com/api/v1/brands')
+        const { data } = await axios.get('https://ecommerce.routemisr.com/api/v1/brands').catch((err)=>{console.log(err)});
         setallbrands(data.data);
 
     }
     const getcategories = async () => {
-        const { data } = await axios.get('https://ecommerce.routemisr.com/api/v1/categories')
+        const { data } = await axios.get('https://ecommerce.routemisr.com/api/v1/categories').catch((err)=>{console.log(err)});
         setallcategories(data.data);
 
     }
     async function fiterProducts(query, value) {
 
-        const { data } = await axios.get(`https://ecommerce.routemisr.com/api/v1/products?${query}=${value}`)
+        const { data } = await axios.get(`https://ecommerce.routemisr.com/api/v1/products?${query}=${value}`).catch((err)=>{console.log(err)});
         setallProducts(data.data);
     }
 
@@ -156,7 +156,7 @@ export default function Products({ filtering }) {
                             </Link>
                             <button className='bg-main border-0 rounded-2 text-white' onClick={() => {
                                 addToCart(prod._id)
-                            }}>+ADD TO CART</button>
+                            }}>  {loading?<i class="fa-solid fa-spinner spin"></i>  :'+ADD TO CART'}</button>
                         </div>
 
                     }) : ''}</div>

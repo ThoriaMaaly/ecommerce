@@ -7,13 +7,13 @@ import '@fortawesome/fontawesome-free/css/all.min.css'
 import { cartcontext } from '../../context/cartcontext'
 function Productdetails() {
 
-    const { addToCart } = useContext(cartcontext)
+    const { addToCart,loading } = useContext(cartcontext)
     let { id } = useParams();
 
     let [productDetails, setproductDetails] = useState(null)
     let [addedToWishList, setaddedToWishList] = useState(false)
     async function getProductDetails() {
-        let data = await axios.get(`https://ecommerce.routemisr.com/api/v1/products/${id}`)
+        let data = await axios.get(`https://ecommerce.routemisr.com/api/v1/products/${id}`).catch((err)=>{console.log(err)});
         setproductDetails(data.data.data)
         console.log(data.data.data)
     }
@@ -33,7 +33,7 @@ function Productdetails() {
             headers: {
                 token: localStorage.getItem('userToken')
             }
-        })
+        }).catch((err)=>{console.log(err)});
         console.log(data)
         setaddedToWishList(false)
     }
@@ -117,7 +117,7 @@ function Productdetails() {
                     <button className='bg-main border-0 rounded-2 text-white w-100' onClick={() => {
 
                         addToCart(id)
-                    }}>+ADD TO CART</button>
+                    }}>{loading?<i class="fa-solid fa-spinner spin"></i>  :'+ADD TO CART'}</button>
                 </div>
             </div>
 

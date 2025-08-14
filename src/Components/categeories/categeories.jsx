@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 function Categeories() {
     const [allcategories, setallcategories] = React.useState(null)
     const getcategories = async () => {
-        const { data } = await axios.get('https://ecommerce.routemisr.com/api/v1/categories')
+        const { data } = await axios.get('https://ecommerce.routemisr.com/api/v1/categories').catch((err)=>{console.log(err)})
 
         setallcategories(data.data);
 

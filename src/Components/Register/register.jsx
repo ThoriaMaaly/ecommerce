@@ -13,7 +13,7 @@ const [isloading,setisloading]=useState(false)
     const register = async (values) => {
         
         setisloading(true)
-        const result = await axios.post('https://ecommerce.routemisr.com/api/v1/auth/signup', values)
+        const result = await axios.post('https://ecommerce.routemisr.com/api/v1/auth/signup', values).catch((err)=>{console.log(err)});
         console.log(result.data);
         setisloading(false);
        

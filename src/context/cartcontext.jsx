@@ -5,12 +5,14 @@ export const cartcontext = createContext();
 
 function Cartcontext({ children }) {
     const [cartId, setCartId] = useState(null)
+    const [loading, setloading] = useState(false)
     const [cartProducts, setCartProducts] = useState(null)
     const [cartDetails, setCartDetails] = useState(null)
     const headers = {
         token: localStorage.getItem('userToken')
     }
     async function addToCart(productId) {
+        setloading(true);
         let result = await axios.post('https://ecommerce.routemisr.com/api/v1/cart', {
 
             "productId": productId,
@@ -22,6 +24,7 @@ function Cartcontext({ children }) {
 
             console.log(err)
         });
+        setloading(false);
         localStorage.setItem('ownerId',result.data.data.cartOwner)
         console.log(result)
         // console.log(productId)
@@ -75,7 +78,7 @@ function Cartcontext({ children }) {
 
 
     return (<>
-        <cartcontext.Provider value={{ addToCart, getUserCart, cartDetails, cartId, cartProducts,updateProductCount,removeCartItem,removeCart }}>
+        <cartcontext.Provider value={{ addToCart, getUserCart, loading,cartDetails, cartId, cartProducts,updateProductCount,removeCartItem,removeCart }}>
             {children}
 
 
